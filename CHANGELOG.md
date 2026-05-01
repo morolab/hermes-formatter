@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] — 2026-05-01
+
+### Fixed
+- Telegram bold rendering: `**text**` now correctly outputs `*text*` (asterisk-based emphasis)
+- Telegram italic rendering: `*text*` preserved (no longer converted to underscore)
+- URL domain escaping: dots no longer escaped in link text (`example.com` instead of `example\.com`)
+- Added `_close_markdown` method to `TelegramAdapter` for unclosed markdown detection
+
+All 30 tests now pass across Python 3.9–3.12.
+
+[Full diff since v0.1.0](https://github.com/morolab/hermes-formatter/compare/v0.1.0...v0.1.1)
+
+---
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [0.1.0] — 2026-05-01
 
 ### Added
