@@ -34,6 +34,26 @@ bot.send_message(chat_id, telegram_text, parse_mode="MarkdownV2")
 
 ---
 
+
+
+---
+
+## 🖼️ Visual Comparison
+
+### Before (plain text — what Hermes sends by default)
+No markdown rendering. Bold text shows as literal `**bold**`. URLs are plain text. Special characters can break parsing.
+
+![Plain text message — no formatting](https://github.com/morolab/hermes-formatter/raw/main/docs/plain-text.png)
+
+### After (formatted — with hermes-formatter)
+Bold, italics, clickable links, emojis, clean bullets — all Telegram MarkdownV2-safe.
+
+![Formatted message — proper MarkdownV2](https://github.com/morolab/hermes-formatter/raw/main/docs/formatted.png)
+
+**The difference:** One function call (`format(message, platform="telegram")`) turns raw agent output into a polished, professional message.
+
+---
+
 **Full documentation below ↓**
 
 ---
