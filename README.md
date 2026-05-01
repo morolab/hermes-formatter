@@ -1,4 +1,5 @@
 # Hermes Universal Formatter
+[![CI](https://github.com/morolab/hermes-formatter/actions/workflows/ci.yml/badge.svg)](https://github.com/morolab/hermes-formatter/actions)
 
 **One API to format agent messages for every platform** — Telegram MarkdownV2, Discord, Slack, CLI colors, Email HTML, and plain text.
 
