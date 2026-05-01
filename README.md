@@ -71,17 +71,61 @@ email = format(msg, platform="email")
 # → {"html": "...", "text": "..."}
 ```
 
-### In Your Hermes Agent
+---
 
-Wrap your agent's output right before sending:
+## 🔥 Using with Hermes Agent (Your Bot)
+
+**This is the important part for you.**
+
+### Step 1: Install the library
+
+```bash
+# If Hermes uses a virtual environment:
+~/.hermes/hermes-agent/venv/bin/pip install hermes-formatter
+
+# Or install from source (if you cloned the repo):
+cd ~/hermes-formatter
+pip install -e .
+```
+
+### Step 2: Format before sending
+
+In your Hermes bot code, **format the message right before you call `send_message`**:
 
 ```python
-class MyHermesAgent:
-    def send_result(self, platform: str, result: str):
-        formatted = format(result, platform=platform)
-        # Send via platform-specific client
-        telegram_bot.send(chat_id, formatted, parse_mode="MarkdownV2")
+from hermes_formatter import format
+
+# Your agent generates plain text
+agent_response = "✅ **Deployed!** Main branch live. https://ci.example.com/build/42"
+
+# Format for Telegram (the most common case)
+telegram_msg = format(agent_response, platform="telegram")
+
+# Now send via your Hermes bot / telegram Bot API
+# The formatted text is safe for MarkdownV2 parse_mode
+telegram_bot.send_message(chat_id, telegram_msg, parse_mode="MarkdownV2")
 ```
+
+### Step 3: One-liner pattern
+
+```python
+def send_to_telegram(text: str):
+    """Send a message to Telegram with proper formatting."""
+    formatted = format(text, platform="telegram")
+    bot.send_message(chat_id=MY_CHAT, text=formatted, parse_mode="MarkdownV2")
+
+def send_to_discord(text: str):
+    formatted = format(text, platform="discord")
+    # Discord webhook or bot send
+    webhook.send(formatted)
+
+def send_to_slack(text: str):
+    formatted = format(text, platform="slack")
+    # Slack client
+    slack_client.chat_postMessage(channel="#alerts", text=formatted)
+```
+
+**That's it.** No tool registration, no config files, no Hermes skill needed. It's just a Python library you import and call.
 
 ---
 
@@ -199,15 +243,12 @@ class MyPlatformAdapter(BaseAdapter):
     def render(self, message: str, **kwargs) -> str:
         # Convert to platform format
         return message
-```
 
-Register in `hermes_formatter/adapters/__init__.py`:
-
-```python
+# Register in hermes_formatter/adapters/__init__.py:
 _ADAPTER_REGISTRY["myplatform"] = MyPlatformAdapter
-```
 
-Now `format(msg, platform="myplatform")` works.
+# Now format(msg, platform="myplatform") works.
+```
 
 ---
 
@@ -309,7 +350,7 @@ PRs welcome! Focus areas:
 - More emoji mappings
 
 ```bash
-git clone https://github.com/yourname/hermes-formatter.git
+git clone https://github.com/morolab/hermes-formatter.git
 cd hermes-formatter
 pip install -e .[dev]
 pytest
@@ -321,7 +362,7 @@ pytest
 
 If this saves you from writing platform-specific formatting code **one more time**, give us a ⭐️!
 
-[GitHub →](https://github.com/yourname/hermes-formatter)
+[GitHub →](https://github.com/morolab/hermes-formatter)
 
 ---
 
