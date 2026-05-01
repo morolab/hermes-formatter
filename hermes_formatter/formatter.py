@@ -87,9 +87,8 @@ def auto_format(message: str, context: Optional[Dict[str, Any]] = None) -> str:
     if context is None:
         context = {}
 
-    platform = (
-        context.get("platform")
-        or "telegram" if context.get("is_telegram") else
+    platform = context.pop("platform", None) or (
+        "telegram" if context.get("is_telegram") else
         "discord" if context.get("is_discord") else
         "slack" if context.get("is_slack") else
         "cli" if context.get("is_cli") else

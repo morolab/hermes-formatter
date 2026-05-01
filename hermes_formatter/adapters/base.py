@@ -9,6 +9,15 @@ from typing import Any
 class BaseAdapter(ABC):
     """Abstract base class for platform adapters."""
 
+    def __init__(self, **kwargs: Any):
+        """
+        Initialize adapter with optional configuration.
+
+        Args:
+            **kwargs: Adapter-specific options (e.g., width for CLI)
+        """
+        pass  # Base adapter stores no state; subclasses can override
+
     @abstractmethod
     def render(self, message: str, **kwargs) -> str:
         """Convert processed message to platform-specific format."""
@@ -33,7 +42,6 @@ class BaseAdapter(ABC):
         """Split at word boundary to avoid breaking mid-word."""
         if len(text) <= max_len:
             return text
-        # Find last space before limit
         split_at = text[:max_len].rfind(" ")
         if split_at == -1:
             split_at = max_len

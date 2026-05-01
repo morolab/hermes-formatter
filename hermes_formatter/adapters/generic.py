@@ -3,6 +3,7 @@ Generic plain-text adapter (fallback).
 No formatting, minimal processing.
 """
 
+import re
 from .base import BaseAdapter
 
 
