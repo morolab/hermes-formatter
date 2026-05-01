@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hermes-formatter"
-version = "0.1.0"
+version = "0.1.1"
 description = "Universal formatter for Hermes agent messages across Telegram, Discord, Slack, CLI, and Email"
 readme = "README.md"
 requires-python = ">=3.9"
