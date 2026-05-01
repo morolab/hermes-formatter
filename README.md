@@ -3,6 +3,46 @@
 
 **One API to format agent messages for every platform** — Telegram MarkdownV2, Discord, Slack, CLI colors, Email HTML, and plain text.
 
+---
+
+## ⚡ Hermes Quick Start
+
+If you're using **Hermes Agent**, here's the 30-second setup:
+
+### 1. Install into Hermes venv
+```bash
+~/.hermes/hermes-agent/venv/bin/pip install hermes-formatter
+# or from source:
+# cd ~/hermes-formatter && pip install -e .
+```
+
+### 2. Use in your bot
+```python
+from hermes_formatter import format
+
+# Your agent returns plain text
+agent_msg = "✅ **Deployed** main to prod. See https://ci.example.com/build/123"
+
+# Format for Telegram before sending
+telegram_text = format(agent_msg, platform="telegram")
+
+# Send with MarkdownV2
+bot.send_message(chat_id, telegram_text, parse_mode="MarkdownV2")
+```
+
+**That's it.** No tool registration, no config files, no skills. Just a Python library.
+
+---
+
+**Full documentation below ↓**
+
+---
+
+# Hermes Universal Formatter
+[![CI](https://github.com/morolab/hermes-formatter/actions/workflows/ci.yml/badge.svg)](https://github.com/morolab/hermes-formatter/actions)
+
+**One API to format agent messages for every platform** — Telegram MarkdownV2, Discord, Slack, CLI colors, Email HTML, and plain text.
+
 Stop hand-rolling per-platform output. Your agent produces one message; this library renders it correctly everywhere.
 
 ```python
