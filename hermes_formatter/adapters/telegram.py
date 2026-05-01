@@ -93,10 +93,10 @@ class TelegramAdapter(BaseAdapter):
                 replacement = f"`{data}`"
             elif kind == "BOLD":
                 content = self.escape(data)
-                replacement = f"**{content}**"
+                replacement = f"*{content}*"
             elif kind == "ITALIC":
                 content = self.escape(data)
-                replacement = f"_{content}_"
+                replacement = f"*{content}*"
             elif kind == "STRIKE":
                 content = self.escape(data)
                 replacement = f"~{content}~"
@@ -108,7 +108,7 @@ class TelegramAdapter(BaseAdapter):
             elif kind == "URL":
                 url = data
                 domain = re.sub(r'https?://', '', url).split('/')[0][:25]
-                domain_esc = self.escape(domain)
+                domain_esc = self.escape_url(domain)
                 url_esc = self.escape_url(url)
                 replacement = f"[{domain_esc}]({url_esc})"
             else:
@@ -121,6 +121,22 @@ class TelegramAdapter(BaseAdapter):
             message = self.truncate(message, self.MAX_LENGTH)
 
         return message
+
+    def _close_markdown(self, text: str) -> str:
+        """Close any unpaired markdown formatting markers."""
+        # Close bold (**)
+        if text.count('**') % 2 == 1:
+            text += '**'
+        # Close single asterisk italic
+        if text.count('*') % 2 == 1 and not text.endswith('*'):
+            text += '*'
+        # Close backtick code
+        if text.count('`') % 2 == 1:
+            text += '`'
+        # Close strikethrough
+        if text.count('~~') % 2 == 1:
+            text += '~~'
+        return text
 
     def truncate(self, message: str, max_length: int) -> str:
         if len(message) <= max_length:
