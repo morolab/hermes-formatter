@@ -52,3 +52,17 @@ htmlcov/
 # Logs
 *.log
 *.pid
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Package
+dist/
+build/
+*.egg-info/
+
+# Local testing
+.env
+.secrets
